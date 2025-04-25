@@ -8,20 +8,28 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class QuartzConfig {
 
-    @Bean
-    public JobDetail jobDetail() {
-        return JobBuilder.newJob(RecordRetentionJob.class)
-                .withIdentity("recordRetentionJob")
+    public JobDetail createJobDetail(Class<? extends Job> jobClass, String jobName) {
+        return JobBuilder.newJob(jobClass)
+                .withIdentity(jobName)
                 .storeDurably()
                 .build();
     }
 
-    @Bean
-    public Trigger trigger(JobDetail jobDetail) {
+    public Trigger createTrigger(JobDetail jobDetail, String triggerName, String cronExpression) {
         return TriggerBuilder.newTrigger()
                 .forJob(jobDetail)
-                .withIdentity("recordRetentionTrigger")
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 * * * * ?")) // Every minute
+                .withIdentity(triggerName)
+                .withSchedule(CronScheduleBuilder.cronSchedule(cronExpression))
                 .build();
+    }
+
+    @Bean
+    public JobDetail recordRetentionJobDetail() {
+        return createJobDetail(RecordRetentionJob.class, "recordRetentionJob");
+    }
+
+    @Bean
+    public Trigger recordRetentionTrigger(JobDetail recordRetentionJobDetail) {
+        return createTrigger(recordRetentionJobDetail, "recordRetentionTrigger", "0 * * * * ?");
     }
 }

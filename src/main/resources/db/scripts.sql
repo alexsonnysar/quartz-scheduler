@@ -30,6 +30,8 @@ select * from public.receipts;
 
 select * from public.record_retention_policy;
 
+select * from qrtz_job_details
+
 
 
 DELETE FROM public.receipts WHERE created_date <= NOW() - INTERVAL '1 day';
