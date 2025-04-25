@@ -13,12 +13,10 @@ import java.util.List;
 public class RecordRetentionPolicyService {
     private final RecordRetentionPolicyRepository recordRetentionPolicyRepository;
     private final JdbcTemplate jdbcTemplate;
-    private final EntityManager entityManager;
 
     public RecordRetentionPolicyService(RecordRetentionPolicyRepository recordRetentionPolicyRepository, JdbcTemplate jdbcTemplate, EntityManager entityManager) {
         this.recordRetentionPolicyRepository = recordRetentionPolicyRepository;
         this.jdbcTemplate = jdbcTemplate;
-        this.entityManager = entityManager;
     }
 
     public void executeRetentionPolicy() {
