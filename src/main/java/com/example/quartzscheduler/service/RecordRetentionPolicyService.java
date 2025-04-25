@@ -25,20 +25,6 @@ public class RecordRetentionPolicyService {
         policies.forEach(this::deleteOldRecords);
     }
 
-//    private void deleteOldRecords(RecordRetentionPolicy policy) {
-//        String tableName = policy.getTableName();
-//        Integer retentionDays = policy.getRetentionDays();
-//
-//        // Dynamically construct the query with retentionDays embedded
-//        String queryString = "DELETE FROM public." + tableName +
-//                " WHERE created_date <= NOW() - INTERVAL '" + retentionDays + " day'";
-//
-//        Query query = entityManager.createNativeQuery(queryString);
-//        int rowsDeleted = query.executeUpdate();
-//
-//        System.out.println("Deleted " + rowsDeleted + " records from " + tableName + " older than " + retentionDays + " days.");
-//    }
-
     private void deleteOldRecords(RecordRetentionPolicy policy) {
         String tableName = policy.getTableName();
         Integer retentionDays = policy.getRetentionDays();
